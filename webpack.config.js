@@ -1,7 +1,5 @@
 const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -14,21 +12,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.scss|sass$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-      },
-      {
         test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/,
-      },
-      {
-        test: /\.svg$/,
-        loader: "svg-inline-loader",
-      },
-      {
-        test: /\.jpg|png|svg$/,
-        use: "file-loader",
       },
       {
         test: /\.html$/,
@@ -56,9 +42,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "landing-page",
       template: "./index.html",
-    }),
-    new MiniCssExtractPlugin({
-      filename: "css/style.css",
     }),
   ],
 };
