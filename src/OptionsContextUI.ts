@@ -3,12 +3,12 @@ import { Options } from "./OptionsFactory";
 export class OptionsContextUI {
   context: HTMLDivElement;
   container: string;
-  option: string;
+  currentOption: string;
   constructor(container) {
     this.container = container;
     this.context = document.createElement("div");
     this.context.textContent = "Select an option first";
-    this.option = "";
+    this.currentOption = "";
     this.attachToContainer();
   }
 
@@ -22,11 +22,11 @@ export class OptionsContextUI {
   }
 
   get choosedOption() {
-    return this.option;
+    return this.currentOption;
   }
 
   set setChoosedOption(option) {
-    this.option = option;
+    this.currentOption = option;
   }
 
   formatText(option) {
