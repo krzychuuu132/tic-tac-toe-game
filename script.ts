@@ -12,7 +12,10 @@ optionsUI.subscribe((selectedOption) => {
   optionsContextUI.updateContext(selectedOption);
 });
 
-gameAreaUI.subscribe(() => {
-  const option = optionsContextUI.choosedOption;
-  gameAreaUI.markArea(option);
+gameAreaUI.subscribe((clickedBtn: HTMLButtonElement) => {
+  // GET CHOOSED OPTION
+  const option = factory.getOption(optionsContextUI.choosedOption);
+  // MARK FIELD - CROSS/CIRCLE
+  gameAreaUI.markField(option, clickedBtn);
+  // AUTO CHOICE BY COMPUTER
 });

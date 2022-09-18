@@ -1,12 +1,17 @@
+import { Circle } from "./Circle";
+import { Cross } from "./Cross";
+
 const GAME_AREA_ROWS = 3;
 
 export class GameAreaUi {
   container: string;
   subscribers: Array<Function>;
+  currentOption: Circle | Cross;
   constructor(container) {
     const root = this.createRoot();
     this.attachToContainer(container, root);
-    const btns = this.createButtons(root);
+    this.createButtons(root);
+    this.currentOption;
     this.subscribers = [];
   }
 
@@ -16,24 +21,32 @@ export class GameAreaUi {
 
   createRoot() {
     const root = document.createElement("div");
+    root.className = "buttons";
     return root;
   }
 
   createButton(id: number) {
     const btn: HTMLButtonElement = document.createElement("button");
     btn.setAttribute("data-id", String(id));
-    btn.addEventListener("click", () => {
-      this.subscribers.forEach((s) => s());
+    btn.addEventListener("click", (e) => {
+      this.subscribers.forEach((s) => s(e.target));
     });
     return btn;
   }
 
-  markArea(option) {}
-
   createButtons(root: HTMLDivElement) {
-    for (let i = 1; i < GAME_AREA_ROWS * GAME_AREA_ROWS; i++) {
+    for (let i = 1; i <= GAME_AREA_ROWS * GAME_AREA_ROWS; i++) {
       root.appendChild(this.createButton(i));
     }
+  }
+
+  changeOption(option) {
+    this.currentOption = option;
+  }
+
+  markField(option: Circle | Cross, clickedbtn: HTMLButtonElement) {
+    const svgElement = option.getIcon();
+    clickedbtn.innerHTML = svgElement;
   }
 
   subscribe(subscriber) {
