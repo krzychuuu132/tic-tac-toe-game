@@ -23,13 +23,19 @@
         display: grid;
         grid-template-columns: repeat(3, 200px);
       }
+
+      .game-area--disabled {
+        pointer-events: none;
+        opacity: .3;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="option-area"></div>
-      <div class="game-area"></div>
+      <div class="game-area game-area--disabled"></div>
       <p class="context"></p>
+      <p class="auto-choice-context"></p>
     </div>
   </body>
 </html>

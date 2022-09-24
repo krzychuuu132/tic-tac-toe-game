@@ -7,10 +7,11 @@ export class GameAreaUi {
   container: string;
   subscribers: Array<Function>;
   currentOption: Circle | Cross;
+  root:  HTMLDivElement
   constructor(container) {
-    const root = this.createRoot();
-    this.attachToContainer(container, root);
-    this.createButtons(root);
+    this.root =  this.createRoot();
+    this.attachToContainer(container, this.root);
+    this.createButtons(this.root);
     this.currentOption;
     this.subscribers = [];
   }
@@ -23,6 +24,10 @@ export class GameAreaUi {
     const root = document.createElement("div");
     root.className = "buttons";
     return root;
+  }
+
+  activeArea()  {
+    this.root.parentElement.classList.remove('game-area--disabled')
   }
 
   createButton(id: number) {
