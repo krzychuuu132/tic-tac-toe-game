@@ -23,10 +23,12 @@
         display: grid;
         grid-template-columns: repeat(3, 200px);
       }
-
+      .game-area .buttons .disabled {
+        pointer-events: none;
+      }
       .game-area--disabled {
         pointer-events: none;
-        opacity: .3;
+        opacity: 0.3;
       }
     </style>
   </head>

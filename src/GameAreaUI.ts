@@ -1,3 +1,4 @@
+import { AUTO_CHOICE_TIME } from "../script";
 import { Circle } from "./Circle";
 import { Cross } from "./Cross";
 import { Options } from "./OptionsFactory";
@@ -38,21 +39,23 @@ export class GameAreaUi {
   autoChoice(option: Circle | Cross, clickedbtn: HTMLButtonElement) {
     this.disableArea();
 
-    const getRandomChoice = (): HTMLButtonElement => {
-      const btns = [...this.root.children].filter((btn: HTMLButtonElement) => btn.children.length === 0) as Array<HTMLButtonElement>;
-      const getRandomValue: number = Math.floor(Math.random() * btns.length);
-      const getRandomButton: HTMLButtonElement = btns[getRandomValue];
-      return getRandomButton;
-    };
+    setTimeout(() => {
+      const getRandomChoice = (): HTMLButtonElement => {
+        const btns = [...this.root.children].filter((btn: HTMLButtonElement) => btn.children.length === 0) as Array<HTMLButtonElement>;
+        const getRandomValue: number = Math.floor(Math.random() * btns.length);
+        const getRandomButton: HTMLButtonElement = btns[getRandomValue];
+        return getRandomButton;
+      };
 
-    if (this.currentOption === Options.circle) {
-      const newCircle = new Circle(Options.circle);
-      this.markField(newCircle, getRandomChoice());
-    } else {
-      const newCross = new Cross(Options.cross);
-      this.markField(newCross, getRandomChoice());
-    }
-    this.activeArea();
+      if (this.currentOption === Options.circle) {
+        const newCircle = new Circle(Options.circle);
+        this.markField(newCircle, getRandomChoice());
+      } else {
+        const newCross = new Cross(Options.cross);
+        this.markField(newCross, getRandomChoice());
+      }
+      this.activeArea();
+    }, AUTO_CHOICE_TIME);
   }
 
   createButton(id: number) {
@@ -70,6 +73,15 @@ export class GameAreaUi {
     }
   }
 
+  checkScore() {
+    const btns = [...this.root.children] as Array<HTMLButtonElement>;
+
+    const getClickedBtns = [...this.root.children].filter((btn: HTMLButtonElement, index) => {
+      if (btn.className === "disabled") {
+      }
+    }) as Array<HTMLButtonElement>;
+  }
+
   changeOption(option) {
     this.currentOption = option;
   }
@@ -77,7 +89,7 @@ export class GameAreaUi {
   markField(option: Circle | Cross, clickedbtn: HTMLButtonElement) {
     const svgElement = option.getIcon();
     clickedbtn.innerHTML = svgElement;
-    clickedbtn.style.pointerEvents = "none";
+    clickedbtn.classList.add("disabled");
   }
 
   subscribe(subscriber) {

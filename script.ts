@@ -26,9 +26,9 @@ gameAreaUI.subscribe((clickedBtn: HTMLButtonElement) => {
   // SET AUTO CHOICE CONTEXT
   autoOptionsContextUI.setContext();
   // AUTO CHOICE BY COMPUTER
-  setTimeout(() => {
-    gameAreaUI.autoChoice(option, clickedBtn);
-  }, AUTO_CHOICE_TIME);
+  gameAreaUI.autoChoice(option, clickedBtn);
   // CLEAR AUTO CHOICE CONTEXT
   autoOptionsContextUI.clearContext();
+  // CHECK WINNER
+  gameAreaUI.checkScore();
 });
